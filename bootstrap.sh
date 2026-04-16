@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ANSIBLE_REPO_HTTPS="https://github.com/moroboshi/opensuse-tumbleweed-ansible.git"
+ANSIBLE_REPO_HTTPS="https://github.com/moroboshi-kun/opensuse-tumbleweed-ansible.git"
 ANSIBLE_DIR="${HOME}/Development/github/moroboshi/opensuse-tumbleweed-ansible"
-DOTFILES_REPO_HTTPS="https://github.com/moroboshi/dot_files.git"
+DOTFILES_REPO_HTTPS="https://github.com/moroboshi-kun/dot_files.git"
 DOTFILES_DIR="${HOME}/Development/github/moroboshi/dot_files"
 
 echo "==> Installing bootstrap dependencies..."
@@ -36,4 +36,4 @@ ansible-playbook "${ANSIBLE_PROJECT_DIR}/site.yml"
 echo ""
 echo "Bootstrap complete."
 echo "SSH keys have been generated. Add your public keys to GitHub/GitLab,"
-echo "then update the dotfiles remote: git -C ${DOTFILES_DIR} remote set-url origin git@github.com:moroboshi/dot_files.git"
+echo "then update the dotfiles remote: git -C ${DOTFILES_DIR} remote set-url origin git@github.com:moroboshi-kun/dot_files.git"

@@ -7,7 +7,7 @@ Ansible project for configuring a fresh openSUSE Tumbleweed workstation.
 On a fresh system without git installed, download and run the bootstrap script directly:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/moroboshi/opensuse-tumbleweed-ansible/main/bootstrap.sh | bash
+curl -fsSL https://raw.githubusercontent.com/moroboshi-kun/opensuse-tumbleweed-ansible/main/bootstrap.sh | bash
 ```
 
 The bootstrap script installs `git`, `ansible`, and `python3` via zypper, clones
@@ -18,7 +18,7 @@ After the playbook completes, add your generated SSH public keys to GitHub/GitLa
 then switch the dotfiles remote to SSH:
 
 ```bash
-git -C ~/Development/github/moroboshi/dot_files remote set-url origin git@github.com:moroboshi/dot_files.git
+git -C ~/Development/github/moroboshi/dot_files remote set-url origin git@github.com:moroboshi-kun/dot_files.git
 ```
 
 ## Day-to-day usage
