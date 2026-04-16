@@ -1,0 +1,13 @@
+---
+- name: Verify
+  hosts: all
+  become: false
+  tasks:
+    - name: Assert powerline-status is installed via pipx
+      ansible.builtin.command: /usr/bin/pipx list
+      register: powerline_pipx_list
+      changed_when: false
+
+    - name: Assert powerline-status is present
+      ansible.builtin.assert:
+        that: "'powerline-status' in powerline_pipx_list.stdout"

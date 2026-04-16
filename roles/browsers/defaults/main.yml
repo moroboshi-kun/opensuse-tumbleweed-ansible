@@ -1,0 +1,6 @@
+---
+browsers_brave_gpg_key: "https://brave-browser-rpm-release.s3.brave.com/brave-core.asc"
+browsers_brave_repo: "https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo"
+browsers_packages:
+  - brave-browser
+  - MozillaThunderbird

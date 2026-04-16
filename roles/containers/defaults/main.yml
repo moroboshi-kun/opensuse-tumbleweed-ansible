@@ -1,0 +1,6 @@
+---
+containers_packages:
+  - docker
+  - docker-compose
+
+containers_manage_service: true

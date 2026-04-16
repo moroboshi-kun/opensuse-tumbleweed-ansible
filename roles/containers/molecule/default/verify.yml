@@ -1,0 +1,14 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+  tasks:
+    - name: Assert docker is installed
+      ansible.builtin.command: rpm -q docker
+      changed_when: false
+      # noqa: command-instead-of-module
+
+    - name: Assert docker-compose is installed
+      ansible.builtin.command: rpm -q docker-compose
+      changed_when: false
+      # noqa: command-instead-of-module

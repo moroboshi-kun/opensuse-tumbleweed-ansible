@@ -1,0 +1,9 @@
+---
+- name: Prepare
+  hosts: all
+  become: false
+  gather_facts: false
+  tasks:
+    - name: Install sudo and python3
+      ansible.builtin.raw: zypper --non-interactive install sudo python3 openssh
+      changed_when: false

@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  become: false
+  vars:
+    nvm_dir: /root/.config/nvm
+  roles:
+    - role: nvm

@@ -1,0 +1,9 @@
+---
+- name: Prepare
+  hosts: all
+  become: false
+  gather_facts: false
+  tasks:
+    - name: Install sudo, python3, and pipx
+      ansible.builtin.raw: zypper --non-interactive install sudo python3 python313-pipx
+      changed_when: false

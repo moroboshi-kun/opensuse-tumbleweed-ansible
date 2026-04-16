@@ -1,0 +1,24 @@
+---
+packages_list:
+  - autojump
+  - btrfsprogs
+  - chrony
+  - dosfstools
+  - e2fsprogs
+  - firewalld
+  - git
+  - git-lfs
+  - gitui
+  - irqbalance
+  - kitty
+  - NetworkManager
+  - numactl
+  - os-prober
+  - python313-pipx
+  - ranger
+  - retext
+  - snapper
+  - tig
+  - tree
+  - xfsprogs
+  - zsh

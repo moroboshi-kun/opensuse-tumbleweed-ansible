@@ -1,0 +1,13 @@
+---
+- name: Install powerline via pipx
+  community.general.pipx:
+    name: "{{ powerline_package }}"
+    state: present
+    executable: "{{ powerline_pipx_executable }}"
+
+- name: Inject powerline packages
+  community.general.pipx:
+    name: "{{ powerline_package }}"
+    inject_packages: "{{ powerline_inject_packages }}"
+    state: inject
+    executable: "{{ powerline_pipx_executable }}"

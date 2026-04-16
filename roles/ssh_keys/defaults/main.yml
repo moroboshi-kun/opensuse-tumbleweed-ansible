@@ -1,0 +1,14 @@
+---
+ssh_keys_user: "{{ ansible_facts['env']['USER'] }}"
+ssh_keys_base_dir: "{{ ansible_facts['env']['HOME'] }}/.ssh"
+ssh_keys_list:
+  - path: GitHub/github_personal_ed
+    comment: github-personal
+  - path: GitHub/github_moroboshi_ed
+    comment: github-moroboshi
+  - path: GitHub/github_professional_ed
+    comment: github-professional
+  - path: GitLab/gitlab_moroboshi_ed
+    comment: gitlab-moroboshi
+  - path: GitLab/gitlab_animalchin_ed
+    comment: gitlab-animalchin

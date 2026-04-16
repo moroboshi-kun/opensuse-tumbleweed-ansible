@@ -1,0 +1,6 @@
+---
+kubernetes_kubectl_repo: "https://pkgs.k8s.io/core:/stable:/v1.35/rpm/"
+kubernetes_kubectl_repo_name: kubernetes
+kubernetes_minikube_version: "v1.38.1"
+kubernetes_minikube_url: "https://storage.googleapis.com/minikube/releases/{{ kubernetes_minikube_version }}/minikube-linux-amd64"
+kubernetes_minikube_dest: /usr/local/bin/minikube

@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  vars:
+    ssh_keys_user: root
+    ssh_keys_base_dir: /root/.ssh
+    ssh_keys_list:
+      - path: GitHub/test_key
+        comment: test-github
+  roles:
+    - role: ssh_keys

@@ -1,0 +1,25 @@
+---
+- name: Verify
+  hosts: all
+  become: false
+  vars:
+    nvm_dir: /root/.config/nvm
+    nvm_node_version: "24.14.1"
+  tasks:
+    - name: Assert nvm.sh exists
+      ansible.builtin.stat:
+        path: "{{ nvm_dir }}/nvm.sh"
+      register: nvm_nvm_sh_stat
+
+    - name: Assert nvm.sh is present
+      ansible.builtin.assert:
+        that: nvm_nvm_sh_stat.stat.exists
+
+    - name: Assert Node.js version directory exists
+      ansible.builtin.stat:
+        path: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}"
+      register: nvm_node_dir_stat
+
+    - name: Assert Node.js version is installed
+      ansible.builtin.assert:
+        that: nvm_node_dir_stat.stat.exists

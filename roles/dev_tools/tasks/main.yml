@@ -1,0 +1,5 @@
+---
+- name: Install dev tools
+  community.general.zypper:
+    name: "{{ dev_tools_packages }}"
+    state: present

@@ -1,0 +1,13 @@
+---
+dev_tools_packages:
+  - ansible
+  - ansible-terraform-inventory
+  - bison
+  - flex
+  - gcc
+  - gh
+  - glab
+  - go
+  - kexec-tools
+  - make
+  - opentofu

@@ -1,0 +1,20 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+  tasks:
+    - name: Assert kubectl is installed
+      ansible.builtin.command: rpm -q kubectl
+      changed_when: false
+      # noqa: command-instead-of-module
+
+    - name: Assert minikube binary exists and is executable
+      ansible.builtin.stat:
+        path: /usr/local/bin/minikube
+      register: kubernetes_minikube_stat
+
+    - name: Assert minikube is present and executable
+      ansible.builtin.assert:
+        that:
+          - kubernetes_minikube_stat.stat.exists
+          - kubernetes_minikube_stat.stat.executable

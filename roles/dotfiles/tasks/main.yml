@@ -1,0 +1,80 @@
+---
+- name: Ensure target directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ dotfiles_user }}"
+  loop:
+    - "{{ ansible_facts['env']['HOME'] }}/.config/git"
+    - "{{ ansible_facts['env']['HOME'] }}/.config/kitty/themes"
+    - "{{ ansible_facts['env']['HOME'] }}/.config/powerline/themes/shell"
+    - "{{ ansible_facts['env']['HOME'] }}/.config/powerline/colorschemes/shell"
+    - "{{ ansible_facts['env']['HOME'] }}/.vim"
+    - "{{ ansible_facts['env']['HOME'] }}/.ssh"
+
+- name: Deploy home directory dotfiles
+  ansible.builtin.copy:
+    src: "{{ dotfiles_repo_path }}/{{ item.src }}"
+    dest: "{{ ansible_facts['env']['HOME'] }}/{{ item.dest }}"
+    owner: "{{ dotfiles_user }}"
+    mode: "{{ item.mode | default('0644') }}"
+  loop:
+    - {src: "bash/{{ dotfiles_distro }}/bashrc", dest: .bashrc}
+    - {src: bash/bash_aliases, dest: .bash_aliases}
+    - {src: bash/bash_functions, dest: .bash_functions}
+    - {src: git/gitconfig, dest: .gitconfig}
+    - {src: vim/vimrc, dest: .vimrc}
+
+- name: Deploy ~/.config/git files
+  ansible.builtin.copy:
+    src: "{{ dotfiles_repo_path }}/git/{{ item }}"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/git/{{ item }}"
+    owner: "{{ dotfiles_user }}"
+    mode: "0644"
+  loop:
+    - gitconfig-gh-moroboshi
+    - gitconfig-gh-onsokumaru
+    - gitconfig-gl-moroboshi
+
+- name: Deploy ssh config
+  ansible.builtin.copy:
+    src: "{{ dotfiles_repo_path }}/ssh/config"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.ssh/config"
+    owner: "{{ dotfiles_user }}"
+    mode: "0600"
+
+- name: Deploy vim coc-settings
+  ansible.builtin.copy:
+    src: "{{ dotfiles_repo_path }}/vim/coc-settings.json"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.vim/coc-settings.json"
+    owner: "{{ dotfiles_user }}"
+    mode: "0644"
+
+- name: Deploy kitty config
+  ansible.builtin.copy:
+    src: "{{ dotfiles_repo_path }}/kitty/kitty.conf"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/kitty/kitty.conf"
+    owner: "{{ dotfiles_user }}"
+    mode: "0644"
+
+- name: Deploy kitty themes
+  ansible.builtin.copy:
+    src: "{{ dotfiles_repo_path }}/kitty/themes/"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/kitty/themes/"
+    owner: "{{ dotfiles_user }}"
+    mode: "0644"
+
+- name: Deploy powerline theme
+  ansible.builtin.copy:
+    src: "{{ dotfiles_repo_path }}/powerline/default.json.themes"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/powerline/themes/shell/default.json"
+    owner: "{{ dotfiles_user }}"
+    mode: "0644"
+
+- name: Deploy powerline colorscheme
+  ansible.builtin.copy:
+    src: "{{ dotfiles_repo_path }}/powerline/default.json.colorschemes"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/powerline/colorschemes/shell/default.json"
+    owner: "{{ dotfiles_user }}"
+    mode: "0644"

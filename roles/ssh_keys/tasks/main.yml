@@ -1,0 +1,18 @@
+---
+- name: Ensure SSH key directories exist
+  ansible.builtin.file:
+    path: "{{ ssh_keys_base_dir }}/{{ item.path | dirname }}"
+    state: directory
+    mode: "0700"
+    owner: "{{ ssh_keys_user }}"
+  loop: "{{ ssh_keys_list }}"
+
+- name: Generate SSH keypairs
+  community.crypto.openssh_keypair:
+    path: "{{ ssh_keys_base_dir }}/{{ item.path }}"
+    type: ed25519
+    comment: "{{ item.comment }}"
+    owner: "{{ ssh_keys_user }}"
+    mode: "0600"
+    force: false
+  loop: "{{ ssh_keys_list }}"

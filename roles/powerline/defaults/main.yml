@@ -1,0 +1,5 @@
+---
+powerline_package: powerline-status
+powerline_inject_packages:
+  - powerline-gitstatus
+powerline_pipx_executable: /usr/bin/pipx

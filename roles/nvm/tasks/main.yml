@@ -1,0 +1,33 @@
+---
+- name: Check if NVM is already installed
+  ansible.builtin.stat:
+    path: "{{ nvm_dir }}/nvm.sh"
+  register: nvm_stat
+
+- name: Ensure NVM directory exists
+  ansible.builtin.file:
+    path: "{{ nvm_dir }}"
+    state: directory
+    mode: "0755"
+  when: not nvm_stat.stat.exists
+
+- name: Download NVM install script
+  ansible.builtin.get_url:
+    url: "{{ nvm_install_script }}"
+    dest: /tmp/nvm_install.sh
+    mode: "0755"
+  when: not nvm_stat.stat.exists
+
+- name: Run NVM install script
+  ansible.builtin.command: /tmp/nvm_install.sh
+  environment:
+    NVM_DIR: "{{ nvm_dir }}"
+  when: not nvm_stat.stat.exists
+  changed_when: true
+
+- name: Install Node.js via NVM
+  ansible.builtin.shell: |
+    source {{ nvm_dir }}/nvm.sh && nvm install {{ nvm_node_version }}
+  args:
+    executable: /bin/bash
+    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}"

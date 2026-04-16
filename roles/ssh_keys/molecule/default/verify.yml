@@ -1,0 +1,36 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+  tasks:
+    - name: Assert SSH key directory exists with correct permissions
+      ansible.builtin.stat:
+        path: /root/.ssh/GitHub
+      register: ssh_keys_dir_stat
+
+    - name: Assert directory is present and has mode 0700
+      ansible.builtin.assert:
+        that:
+          - ssh_keys_dir_stat.stat.exists
+          - ssh_keys_dir_stat.stat.mode == "0700"
+
+    - name: Assert private key exists with correct permissions
+      ansible.builtin.stat:
+        path: /root/.ssh/GitHub/test_key
+      register: ssh_keys_key_stat
+
+    - name: Assert private key is present and has mode 0600
+      ansible.builtin.assert:
+        that:
+          - ssh_keys_key_stat.stat.exists
+          - ssh_keys_key_stat.stat.mode == "0600"
+
+    - name: Assert public key exists
+      ansible.builtin.stat:
+        path: /root/.ssh/GitHub/test_key.pub
+      register: ssh_keys_pub_stat
+
+    - name: Assert public key is present
+      ansible.builtin.assert:
+        that:
+          - ssh_keys_pub_stat.stat.exists

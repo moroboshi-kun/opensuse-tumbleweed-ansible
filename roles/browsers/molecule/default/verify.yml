@@ -1,0 +1,14 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+  tasks:
+    - name: Assert brave-browser is installed
+      ansible.builtin.command: rpm -q brave-browser
+      changed_when: false
+      # noqa: command-instead-of-module
+
+    - name: Assert MozillaThunderbird is installed
+      ansible.builtin.command: rpm -q MozillaThunderbird
+      changed_when: false
+      # noqa: command-instead-of-module

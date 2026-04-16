@@ -1,0 +1,4 @@
+---
+dotfiles_repo_path: "{{ ansible_facts['env']['HOME'] }}/Development/github/moroboshi/dot_files"
+dotfiles_user: "{{ ansible_facts['env']['USER'] }}"
+dotfiles_distro: opensuse

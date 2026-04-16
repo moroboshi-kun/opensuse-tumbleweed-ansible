@@ -1,0 +1,52 @@
+---
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install ansible ansible-lint
+
+      - name: Install collections
+        run: ansible-galaxy collection install -r requirements.yml
+
+      - name: Run ansible-lint
+        run: ansible-lint
+
+  molecule:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install ansible molecule molecule-plugins[docker]
+
+      - name: Install collections
+        run: ansible-galaxy collection install -r requirements.yml
+
+      - name: Run Molecule (containers role)
+        working-directory: roles/containers
+        run: molecule test
+
+      - name: Run Molecule (kubernetes role)
+        working-directory: roles/kubernetes
+        run: molecule test

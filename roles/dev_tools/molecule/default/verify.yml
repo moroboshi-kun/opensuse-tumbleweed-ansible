@@ -1,0 +1,14 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+  tasks:
+    - name: Assert key dev tools are installed
+      ansible.builtin.command: rpm -q {{ item }}
+      changed_when: false
+      loop:
+        - gcc
+        - make
+        - go
+        - gh
+      # noqa: command-instead-of-module
