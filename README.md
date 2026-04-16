@@ -4,15 +4,15 @@ Ansible project for configuring a fresh openSUSE Tumbleweed workstation.
 
 ## Bootstrap (fresh system)
 
+On a fresh system without git installed, download and run the bootstrap script directly:
+
 ```bash
-git clone https://github.com/moroboshi/opensuse-tumbleweed-ansible.git
-cd opensuse-tumbleweed-ansible
-./bootstrap.sh
+curl -fsSL https://raw.githubusercontent.com/moroboshi/opensuse-tumbleweed-ansible/main/bootstrap.sh | bash
 ```
 
 The bootstrap script installs `git`, `ansible`, and `python3` via zypper, clones
-the dotfiles repo over HTTPS, installs required Ansible collections, then runs
-the full playbook.
+both this repo and the dotfiles repo over HTTPS, installs required Ansible
+collections, then runs the full playbook.
 
 After the playbook completes, add your generated SSH public keys to GitHub/GitLab,
 then switch the dotfiles remote to SSH:

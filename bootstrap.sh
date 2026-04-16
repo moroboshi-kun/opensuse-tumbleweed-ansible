@@ -1,12 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+ANSIBLE_REPO_HTTPS="https://github.com/moroboshi/opensuse-tumbleweed-ansible.git"
+ANSIBLE_DIR="${HOME}/Development/github/moroboshi/opensuse-tumbleweed-ansible"
 DOTFILES_REPO_HTTPS="https://github.com/moroboshi/dot_files.git"
 DOTFILES_DIR="${HOME}/Development/github/moroboshi/dot_files"
-ANSIBLE_PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "==> Installing bootstrap dependencies..."
 sudo zypper --non-interactive install git ansible python3
+
+echo "==> Cloning ansible project repo..."
+mkdir -p "$(dirname "${ANSIBLE_DIR}")"
+if [[ ! -d "${ANSIBLE_DIR}/.git" ]]; then
+  git clone "${ANSIBLE_REPO_HTTPS}" "${ANSIBLE_DIR}"
+else
+  echo "    Ansible project repo already present, skipping clone."
+fi
+
+ANSIBLE_PROJECT_DIR="${ANSIBLE_DIR}"
 
 echo "==> Cloning dotfiles repo..."
 mkdir -p "$(dirname "${DOTFILES_DIR}")"
