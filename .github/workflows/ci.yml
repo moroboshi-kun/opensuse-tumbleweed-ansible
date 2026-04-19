@@ -50,3 +50,7 @@ jobs:
       - name: Run Molecule (kubernetes role)
         working-directory: roles/kubernetes
         run: molecule test
+
+      - name: Run Molecule (ssh_keys role)
+        working-directory: roles/ssh_keys
+        run: molecule test
