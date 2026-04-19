@@ -1,0 +1,4 @@
+---
+fonts_nerd_fonts_version: "v3.4.0"
+fonts_nerd_fonts_url: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ fonts_nerd_fonts_version }}/SourceCodePro.zip"
+fonts_install_dir: "{{ ansible_facts['env']['HOME'] }}/.local/share/fonts"

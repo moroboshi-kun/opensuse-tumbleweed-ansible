@@ -1,0 +1,36 @@
+---
+- name: Check if SauceCodePro Nerd Font is already installed
+  ansible.builtin.find:
+    paths: "{{ fonts_install_dir }}"
+    patterns: "SauceCodeProNerdFontMono-*.ttf"
+  register: fonts_existing
+
+- name: Install SauceCodePro Nerd Font
+  when: fonts_existing.matched == 0
+  block:
+    - name: Ensure fonts directory exists
+      ansible.builtin.file:
+        path: "{{ fonts_install_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Download SourceCodePro Nerd Font zip
+      ansible.builtin.get_url:
+        url: "{{ fonts_nerd_fonts_url }}"
+        dest: /tmp/SourceCodePro.zip
+        mode: "0644"
+
+    - name: Unzip fonts
+      ansible.builtin.unarchive:
+        src: /tmp/SourceCodePro.zip
+        dest: "{{ fonts_install_dir }}"
+        remote_src: true
+
+    - name: Remove zip
+      ansible.builtin.file:
+        path: /tmp/SourceCodePro.zip
+        state: absent
+
+    - name: Refresh font cache
+      ansible.builtin.command: fc-cache -fv
+      changed_when: true

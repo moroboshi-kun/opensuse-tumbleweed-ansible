@@ -18,6 +18,8 @@
   hosts: localhost
   become: false
   roles:
+    - role: fonts
+      tags: fonts
     - role: dotfiles
       tags: dotfiles
     - role: ssh_keys
