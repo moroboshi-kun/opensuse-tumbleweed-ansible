@@ -14,3 +14,7 @@ __pycache__/
 .vscode/
 .idea/
 *.swp
+
+# Kiro
+.kiro/
+FIXES.md
