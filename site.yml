@@ -6,12 +6,29 @@
     - name: Gather service facts
       ansible.builtin.service_facts:
 
-    - name: Disable and stop PackageKit to release zypper lock
+    - name: Disable and stop PackageKit
       ansible.builtin.service:
         name: packagekit
         state: stopped
         enabled: false
       when: "'packagekit.service' in ansible_facts.services"
+
+    - name: Kill any remaining PackageKit processes
+      ansible.builtin.command: pkill -f packagekitd
+      failed_when: false
+      changed_when: false
+
+    - name: Kill any gnome-software processes holding zypper lock
+      ansible.builtin.command: pkill -f gnome-software
+      failed_when: false
+      changed_when: false
+
+    - name: Wait for zypper lock to be released
+      ansible.builtin.wait_for:
+        path: /var/run/zypp.pid
+        state: absent
+        timeout: 30
+      failed_when: false
   roles:
     - role: packages
       tags: packages
