@@ -6,10 +6,11 @@
     - name: Gather service facts
       ansible.builtin.service_facts:
 
-    - name: Stop PackageKit to release zypper lock
+    - name: Disable and stop PackageKit to release zypper lock
       ansible.builtin.service:
         name: packagekit
         state: stopped
+        enabled: false
       when: "'packagekit.service' in ansible_facts.services"
   roles:
     - role: packages
