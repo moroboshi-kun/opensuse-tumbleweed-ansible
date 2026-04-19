@@ -1,5 +1,7 @@
 ---
+# Check for new releases: https://github.com/nvm-sh/nvm/releases
 nvm_version: v0.40.4
 nvm_install_script: "https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_version }}/install.sh"
 nvm_dir: "{{ ansible_facts['env']['HOME'] }}/.config/nvm"
+# Check for new releases: https://nodejs.org/en/download
 nvm_node_version: "24.14.1"
