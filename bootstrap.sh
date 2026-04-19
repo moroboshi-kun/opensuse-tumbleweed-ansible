@@ -31,7 +31,7 @@ echo "==> Installing Ansible collections..."
 ansible-galaxy collection install -r "${ANSIBLE_PROJECT_DIR}/requirements.yml"
 
 echo "==> Running playbook..."
-ansible-playbook "${ANSIBLE_PROJECT_DIR}/site.yml"
+ansible-playbook "${ANSIBLE_PROJECT_DIR}/site.yml" --ask-become-pass
 
 echo ""
 echo "Bootstrap complete."
