@@ -4,6 +4,13 @@
     name: "{{ containers_packages }}"
     state: present
 
+- name: Add user to docker group
+  ansible.builtin.user:
+    name: "{{ ansible_facts['env']['USER'] }}"
+    groups: docker
+    append: true
+  when: containers_manage_service | bool
+
 - name: Enable and start docker
   ansible.builtin.service:
     name: docker
