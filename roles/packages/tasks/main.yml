@@ -1,4 +1,13 @@
 ---
+- name: Gather service facts
+  ansible.builtin.service_facts:
+
+- name: Stop PackageKit to release zypper lock
+  ansible.builtin.service:
+    name: packagekit
+    state: stopped
+  when: "'packagekit.service' in ansible_facts.services"
+
 - name: Install packages
   community.general.zypper:
     name: "{{ packages_list }}"
