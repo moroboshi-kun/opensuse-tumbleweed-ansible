@@ -1,5 +1,9 @@
 ---
 packages_list:
+  - htop
+  - iftop
+  - iotop
+  - sysstat
   - autojump
   - btrfsprogs
   - chrony
